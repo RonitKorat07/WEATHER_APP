@@ -15,24 +15,24 @@ const Weather = () => {
   const suggestionRef = useRef();
 
   const iconMap = {
-    "01d": <Sun size={90} className="text-yellow-400 drop-shadow-lg" />,
-    "01n": <Sun size={90} className="text-yellow-200 drop-shadow-lg" />,
-    "02d": <CloudSun size={90} className="text-gray-300 drop-shadow-lg" />,
-    "02n": <Cloud size={90} className="text-gray-400 drop-shadow-lg" />,
-    "03d": <Cloud size={90} className="text-gray-400 drop-shadow-lg" />,
-    "03n": <Cloud size={90} className="text-gray-500 drop-shadow-lg" />,
-    "04d": <Cloud size={90} className="text-gray-500 drop-shadow-lg" />,
-    "04n": <Cloud size={90} className="text-gray-600 drop-shadow-lg" />,
-    "09d": <CloudDrizzle size={90} className="text-blue-400 drop-shadow-lg" />,
-    "09n": <CloudDrizzle size={90} className="text-blue-500 drop-shadow-lg" />,
-    "10d": <CloudRain size={90} className="text-blue-500 drop-shadow-lg" />,
-    "10n": <CloudRain size={90} className="text-blue-600 drop-shadow-lg" />,
-    "11d": <CloudLightning size={90} className="text-purple-400 drop-shadow-lg" />,
-    "11n": <CloudLightning size={90} className="text-purple-500 drop-shadow-lg" />,
-    "13d": <Snowflake size={90} className="text-white drop-shadow-lg" />,
-    "13n": <Snowflake size={90} className="text-slate-100 drop-shadow-lg" />,
-    "50d": <Wind size={90} className="text-teal-200 drop-shadow-lg" />,
-    "50n": <Wind size={90} className="text-teal-300 drop-shadow-lg" />,
+    "01d": <Sun size={72} className="text-yellow-400 drop-shadow-lg" />,
+    "01n": <Sun size={72} className="text-yellow-200 drop-shadow-lg" />,
+    "02d": <CloudSun size={72} className="text-gray-300 drop-shadow-lg" />,
+    "02n": <Cloud size={72} className="text-gray-400 drop-shadow-lg" />,
+    "03d": <Cloud size={72} className="text-gray-400 drop-shadow-lg" />,
+    "03n": <Cloud size={72} className="text-gray-500 drop-shadow-lg" />,
+    "04d": <Cloud size={72} className="text-gray-500 drop-shadow-lg" />,
+    "04n": <Cloud size={72} className="text-gray-600 drop-shadow-lg" />,
+    "09d": <CloudDrizzle size={72} className="text-blue-400 drop-shadow-lg" />,
+    "09n": <CloudDrizzle size={72} className="text-blue-500 drop-shadow-lg" />,
+    "10d": <CloudRain size={72} className="text-blue-500 drop-shadow-lg" />,
+    "10n": <CloudRain size={72} className="text-blue-600 drop-shadow-lg" />,
+    "11d": <CloudLightning size={72} className="text-purple-400 drop-shadow-lg" />,
+    "11n": <CloudLightning size={72} className="text-purple-500 drop-shadow-lg" />,
+    "13d": <Snowflake size={72} className="text-white drop-shadow-lg" />,
+    "13n": <Snowflake size={72} className="text-slate-100 drop-shadow-lg" />,
+    "50d": <Wind size={72} className="text-teal-200 drop-shadow-lg" />,
+    "50n": <Wind size={72} className="text-teal-300 drop-shadow-lg" />,
   };
 
   const search = async (city) => {
@@ -91,7 +91,7 @@ const Weather = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!isSelecting) {
+      if (!isSelecting && document.activeElement === inputRef.current) {
         fetchSuggestions(searchQuery);
       }
       setIsSelecting(false);
@@ -131,7 +131,7 @@ const Weather = () => {
     <div className="min-h-screen bg-gradient-to-br from-[#1e3a8a] via-[#1e40af] to-[#0f172a] flex items-center justify-center p-4 sm:p-6 font-sans">
       
       {/* 1. FIXED MAIN BOX: Added p-8 for inner spacing and rounded-[2.5rem] for better curves */}
-      <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-8 shadow-2xl w-full max-w-[420px] relative">
+      <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[2rem] p-6 shadow-2xl w-full max-w-[360px] relative">
         
         {/* 2. FIXED SEARCH BAR: Added mb-8 (margin-bottom) so it doesn't touch the city name */}
         <div className="relative mb-8">
@@ -142,7 +142,7 @@ const Weather = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search city..." 
-              className="w-full bg-transparent outline-none text-white placeholder-white/70 px-6 py-3.5 text-base sm:text-lg"
+              className="w-full bg-transparent outline-none text-white placeholder-white/70 px-5 py-3 text-base"
               onKeyDown={(e) => e.key === 'Enter' && search(searchQuery)}
             />
             <button 
@@ -190,62 +190,62 @@ const Weather = () => {
           <div className="flex flex-col items-center w-full">
             
             {/* Header / Location */}
-            <div className="flex flex-col items-center mb-6">
-              <h2 className="text-white text-3xl sm:text-4xl capitalize font-bold flex items-center justify-center gap-2 drop-shadow-md">
-                <MapPin size={28} className="text-white" />
+            <div className="flex flex-col items-center mb-4">
+              <h2 className="text-white text-2xl sm:text-3xl capitalize font-bold flex items-center justify-center gap-2 drop-shadow-md">
+                <MapPin size={24} className="text-indigo-300" />
                 {weatherData.location}
               </h2>
-              <p className="text-white/80 text-base mt-2 tracking-wider font-medium capitalize">
+              <p className="text-white/70 text-sm mt-1 tracking-wider font-medium capitalize">
                 {weatherData.description}
               </p>
             </div>
 
-            {/* 3. FIXED TEMPERATURE OVERLAP: Added mb-10 (margin-bottom) and leading-none */}
-            <div className="flex flex-col items-center mb-10">
-              <div className="flex justify-center mb-4 drop-shadow-2xl">
-                {iconMap[weatherData.iconCode] || <Sun size={90} className="text-yellow-400 drop-shadow-lg" />}
+            {/* Temperature Section */}
+            <div className="flex flex-col items-center mb-6">
+              <div className="flex justify-center mb-2 drop-shadow-2xl">
+                {iconMap[weatherData.iconCode] || <Sun size={72} className="text-yellow-400 drop-shadow-lg" />}
               </div>
-              <h1 className="text-8xl sm:text-[100px] font-black text-white drop-shadow-xl select-none leading-none tracking-tighter">
-                {weatherData.temperature}°C
+              <h1 className="text-5xl sm:text-6xl font-black text-white drop-shadow-xl select-none leading-none tracking-tighter">
+                {weatherData.temperature}°<span className="text-3xl sm:text-4xl font-light">C</span>
               </h1>
             </div>
 
             {/* 4. FIXED GRID: Increased gap-4, added p-4 padding inside boxes, and made them rounded-3xl instead of weird pills */}
             <div className="grid grid-cols-2 gap-4 w-full">
               
-              <div className="bg-white/10 border border-white/10 p-4 rounded-3xl flex items-center gap-4 hover:bg-white/20 transition-all">
-                <Droplets className="text-white shrink-0" size={26} />
+              <div className="bg-white/5 border border-white/10 p-3 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition-all group">
+                <Droplets className="text-indigo-300 shrink-0 group-hover:scale-110 transition-transform" size={20} />
                 <div className="flex flex-col">
-                  <span className="text-white font-bold text-lg leading-tight">{weatherData.humidity}%</span>
-                  <span className="text-white/60 text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5">Humidity</span>
+                  <span className="text-white font-bold text-base leading-tight">{weatherData.humidity}%</span>
+                  <span className="text-white/50 text-[10px] font-bold uppercase tracking-wider">Humidity</span>
                 </div>
               </div>
 
-              <div className="bg-white/10 border border-white/10 p-4 rounded-3xl flex items-center gap-4 hover:bg-white/20 transition-all">
-                <Wind className="text-white shrink-0" size={26} />
+              <div className="bg-white/5 border border-white/10 p-3 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition-all group">
+                <Wind className="text-indigo-300 shrink-0 group-hover:scale-110 transition-transform" size={20} />
                 <div className="flex flex-col">
-                  <span className="text-white font-bold text-lg leading-tight">
-                    {weatherData.windSpeed} <span className="text-xs font-normal opacity-70">km/h</span>
+                  <span className="text-white font-bold text-base leading-tight">
+                    {weatherData.windSpeed} <span className="text-[10px] font-normal opacity-70">km/h</span>
                   </span>
-                  <span className="text-white/60 text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5">Wind</span>
+                  <span className="text-white/50 text-[10px] font-bold uppercase tracking-wider">Wind</span>
                 </div>
               </div>
 
-              <div className="bg-white/10 border border-white/10 p-4 rounded-3xl flex items-center gap-4 hover:bg-white/20 transition-all">
-                <Thermometer className="text-white shrink-0" size={26} />
+              <div className="bg-white/5 border border-white/10 p-3 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition-all group">
+                <Thermometer className="text-indigo-300 shrink-0 group-hover:scale-110 transition-transform" size={20} />
                 <div className="flex flex-col">
-                  <span className="text-white font-bold text-lg leading-tight">{weatherData.feelsLike}°C</span>
-                  <span className="text-white/60 text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5">Feels Like</span>
+                  <span className="text-white font-bold text-base leading-tight">{weatherData.feelsLike}°C</span>
+                  <span className="text-white/50 text-[10px] font-bold uppercase tracking-wider">Feels Like</span>
                 </div>
               </div>
 
-              <div className="bg-white/10 border border-white/10 p-4 rounded-3xl flex items-center gap-4 hover:bg-white/20 transition-all">
-                <Gauge className="text-white shrink-0" size={26} />
+              <div className="bg-white/5 border border-white/10 p-3 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition-all group">
+                <Gauge className="text-indigo-300 shrink-0 group-hover:scale-110 transition-transform" size={20} />
                 <div className="flex flex-col">
-                  <span className="text-white font-bold text-lg leading-tight">
-                    {weatherData.pressure} <span className="text-xs font-normal opacity-70">hPa</span>
+                  <span className="text-white font-bold text-base leading-tight">
+                    {weatherData.pressure} <span className="text-[10px] font-normal opacity-70">hPa</span>
                   </span>
-                  <span className="text-white/60 text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5">Pressure</span>
+                  <span className="text-white/50 text-[10px] font-bold uppercase tracking-wider">Pressure</span>
                 </div>
               </div>
 
